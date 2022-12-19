@@ -13,8 +13,8 @@ const ProjectSchema = new mongoose.Schema({
     },
     ClientId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Client'
+        ref: 'ClientM'
     }
 });
 
-module.exports = mongoose.model('Project', ProjectSchema);
+module.exports = mongoose.model('ProjectM', ProjectSchema);
