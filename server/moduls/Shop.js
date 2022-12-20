@@ -55,12 +55,6 @@ const ShopModel = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    rating: {
-        service: { type: Number, default: 3 },
-        facility: { type: Number, default: 3 },
-        behaviour: { type: Number, default: 3 },
-        CostomerExperience: { type: Number, default: 3 }
-    },
     walk: {
         type: Number,
         default: 3
