@@ -11,14 +11,3 @@ const ratingModel = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('ShopRating', ratingModel);
-
-
-// rating: {
-//
-// },
-// rating: {
-//     facility: args.facility,
-//     service: args.service,
-//     behaviour: args.behaviour,
-//     CostomerExperience: args.CostomerExperience,
-// }

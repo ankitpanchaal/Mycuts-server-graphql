@@ -11,7 +11,7 @@ const {
     GraphQLList,
     GraphQLBoolean,
     GraphQLInt,
-} = require('graphql')
+} = require('graphql');
 
 const ShopType = new GraphQLObjectType({ //schema
     name: 'Shop',
@@ -235,6 +235,16 @@ const MyMutations = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return Shop.findByIdAndRemove(args.id);
+            }
+        },
+        //Dellete rating
+        DeletRating: {
+            type: RatingType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                return Rating.findByIdAndRemove(args.id);
             }
         }
     }
