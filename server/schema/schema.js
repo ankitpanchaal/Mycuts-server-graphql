@@ -246,6 +246,93 @@ const MyMutations = new GraphQLObjectType({
             resolve(parent, args) {
                 return Rating.findByIdAndRemove(args.id);
             }
+        },
+
+        //update shop
+        UpdateShop: {
+            type: ShopType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                ShopName: { type: GraphQLString },
+                ShopID: { type: GraphQLID },
+                phone: { type: GraphQLString },
+                email: { type: GraphQLString },
+                Image: { type: GraphQLString },
+                description: { type: GraphQLString },
+                OwnerName: { type: GraphQLString },
+                Location: { type: GraphQLString },
+                OpenTime: { type: GraphQLString },
+                CloseTime: { type: GraphQLString },
+
+                Queue: { type: GraphQLInt },
+                WaitingTime: { type: GraphQLInt },
+                walk: { type: GraphQLInt },
+                isNearest: { type: GraphQLBoolean },
+                isTop: { type: GraphQLBoolean },
+                isMan: { type: GraphQLBoolean },
+                isWoman: { type: GraphQLBoolean },
+            },
+            resolve(parent, args) {
+                return Shop.findByIdAndUpdate(
+                    args.id,
+                    {
+                        $set: {
+                            ShopName: args.ShopName,
+                            ShopID: args.ShopID,
+                            phone: args.phone,
+                            email: args.email,
+                            Image: args.Image,
+                            description: args.description,
+                            OwnerName: args.OwnerName,
+                            Location: args.Location,
+                            OpenTime: args.OpenTime,
+                            CloseTime: args.CloseTime,
+                            isNearest: args.isNearest,
+                            isTop: args.isTop,
+                            isMan: args.isMan,
+                            isWoman: args.isWoman,
+                            Queue: args.Queue,
+                            WaitingTime: args.WaitingTime,
+                            walk: args.walk,
+                        },
+                    },
+                    { new: true }
+                );
+            }
+        },
+
+        // Update Service
+        UpdateService: {
+            type: ServiceType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                ShopID: { type: GraphQLID },
+                title: { type: GraphQLString },
+                price: { type: GraphQLString },
+                description: { type: GraphQLString },
+                Image: { type: GraphQLString },
+                tag: { type: GraphQLString },
+                offerDis: { type: GraphQLString },
+                offer: { type: GraphQLBoolean },
+            },
+            resolve(parent, args) {
+                return Service.findByIdAndUpdate(
+                    args.id,
+                    {
+                        $set: {
+                            ShopID: args.ShopID,
+                            title: args.title,
+                            Image: args.Image,
+                            description: args.description,
+                            tag: args.tag,
+                            price: args.price,
+                            offerDis: args.offerDis,
+                            offer: args.offer,
+                        },
+                    },
+                    { new: true }
+                )
+            }
         }
     }
 
