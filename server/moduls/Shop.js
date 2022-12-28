@@ -13,6 +13,9 @@ const ShopModel = new mongoose.Schema({
     email: {
         type: String,
     },
+    password: {
+        type: String,
+    },
     Image: {
         type: String,
     },
