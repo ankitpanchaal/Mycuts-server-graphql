@@ -17,7 +17,7 @@ const ShopType = new GraphQLObjectType({ //schema
     name: 'Shop',
     fields: () => ({
         id: { type: GraphQLID },
-        ShopID: { type: GraphQLID },
+        ShopID: { type: GraphQLString },
         ShopName: { type: GraphQLString },
         phone: { type: GraphQLString },
         email: { type: GraphQLString },
@@ -49,7 +49,7 @@ const ServiceType = new GraphQLObjectType({
     name: 'Service',
     fields: () => ({
         id: { type: GraphQLID },
-        ShopID: { type: GraphQLID },
+        ShopID: { type: GraphQLString },
         title: { type: GraphQLString },
         price: { type: GraphQLString },
         Image: { type: GraphQLString },
@@ -64,7 +64,7 @@ const RatingType = new GraphQLObjectType({
     name: 'rating',
     fields: () => ({
         id: { type: GraphQLID },
-        ShopID: { type: GraphQLID },
+        ShopID: { type: GraphQLString },
         service: { type: GraphQLInt },
         facility: { type: GraphQLInt },
         behaviour: { type: GraphQLInt },
@@ -124,7 +124,7 @@ const MyMutations = new GraphQLObjectType({
         addServices: {
             type: ServiceType,
             args: {
-                ShopID: { type: new GraphQLNonNull(GraphQLID) },
+                ShopID: { type: new GraphQLNonNull(GraphQLString) },
                 title: { type: new GraphQLNonNull(GraphQLString) },
                 price: { type: new GraphQLNonNull(GraphQLString) },
                 description: { type: new GraphQLNonNull(GraphQLString) },
@@ -152,7 +152,7 @@ const MyMutations = new GraphQLObjectType({
         addRating: {
             type: RatingType,
             args: {
-                ShopID: { type: new GraphQLNonNull(GraphQLID) },
+                ShopID: { type: new GraphQLNonNull(GraphQLString) },
                 service: { type: GraphQLInt },
                 facility: { type: GraphQLInt },
                 behaviour: { type: GraphQLInt },
@@ -175,7 +175,7 @@ const MyMutations = new GraphQLObjectType({
             type: ShopType,
             args: {
                 ShopName: { type: new GraphQLNonNull(GraphQLString) },
-                ShopID: { type: new GraphQLNonNull(GraphQLID) },
+                ShopID: { type: new GraphQLNonNull(GraphQLString) },
                 phone: { type: new GraphQLNonNull(GraphQLString) },
                 email: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) },
@@ -257,7 +257,7 @@ const MyMutations = new GraphQLObjectType({
             args: {
                 id: { type: new GraphQLNonNull(GraphQLID) },
                 ShopName: { type: GraphQLString },
-                ShopID: { type: GraphQLID },
+                ShopID: { type: GraphQLString },
                 phone: { type: GraphQLString },
                 email: { type: GraphQLString },
                 password: { type: GraphQLString },
@@ -311,7 +311,7 @@ const MyMutations = new GraphQLObjectType({
             type: ServiceType,
             args: {
                 id: { type: new GraphQLNonNull(GraphQLID) },
-                ShopID: { type: GraphQLID },
+                ShopID: { type: GraphQLString },
                 title: { type: GraphQLString },
                 price: { type: GraphQLString },
                 description: { type: GraphQLString },
