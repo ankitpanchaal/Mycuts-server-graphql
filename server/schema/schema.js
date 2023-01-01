@@ -1,6 +1,8 @@
 const Shop = require('../moduls/Shop')
 const Service = require('../moduls/serivces')
 const Rating = require('../moduls/rating')
+const USERS = require('../moduls/Users/UsersLogin')
+
 
 const {
     GraphQLNonNull,
@@ -35,13 +37,7 @@ const ShopType = new GraphQLObjectType({ //schema
         isNearest: { type: GraphQLBoolean },
         isTop: { type: GraphQLBoolean },
         isMan: { type: GraphQLBoolean },
-        isWoman: { type: GraphQLBoolean },
-        // itsSerive: {
-        //     type: ServiceType,
-        //     resolve(parent, args) {
-        //         return Service.findById(parent.ShopID)
-        //     }
-        // }
+        isWoman: { type: GraphQLBoolean }
     })
 });
 
@@ -72,6 +68,16 @@ const RatingType = new GraphQLObjectType({
     })
 });
 
+const UserType = new GraphQLObjectType({
+    name: 'User',
+    fields: () => ({
+        UserName: { type: GraphQLString, },
+        phone: { type: GraphQLString, },
+        email: { type: GraphQLString, },
+        password: { type: GraphQLString, },
+    })
+});
+
 const RootQuery = new GraphQLObjectType({ //resolver
     name: "RootQueryType",
     fields: {
@@ -91,6 +97,12 @@ const RootQuery = new GraphQLObjectType({ //resolver
             type: new GraphQLList(RatingType),
             resolve(perent, args) {
                 return Rating.find();
+            }
+        },
+        AllUsers: {
+            type: new GraphQLList(UserType),
+            resolve(perent, args) {
+                return USERS.find();
             }
         },
         ServicesById: {
@@ -218,6 +230,25 @@ const MyMutations = new GraphQLObjectType({
                 });
 
                 return NewShop.save(); //Creating New Client
+            }
+        },
+        // add Users
+        addUser: {
+            type: UserType,
+            args: {
+                UserName: { type: GraphQLString, },
+                phone: { type: GraphQLString, },
+                email: { type: GraphQLString, },
+                password: { type: GraphQLString, },
+            },
+            resolve(parent, args) {
+                const NewUsers = new USERS({
+                    UserName: args.UserName,
+                    phone: args.phone,
+                    email: args.email,
+                    password: args.password
+                });
+                return NewUsers.save(); //Creating New Client
             }
         },
         // Delete
