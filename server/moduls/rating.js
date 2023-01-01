@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ratingModel = new mongoose.Schema({
     ShopID: {
-        type: Number,
+        type: String,
     },
     service: { type: Number, default: 3 },
     facility: { type: Number, default: 3 },

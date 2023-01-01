@@ -5,7 +5,7 @@ const ShopModel = new mongoose.Schema({
         type: String,
     },
     ShopID: {
-        type: Number
+        type: String
     },
     phone: {
         type: String,

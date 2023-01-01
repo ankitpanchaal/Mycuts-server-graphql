@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const ServiceModel = new mongoose.Schema({
     ShopID: {
-        type: Number,
+        type: String,
     },
     title: {
         type: String,
