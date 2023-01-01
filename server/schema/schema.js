@@ -2,6 +2,7 @@ const Shop = require('../moduls/Shop')
 const Service = require('../moduls/serivces')
 const Rating = require('../moduls/rating')
 const USERS = require('../moduls/Users/UsersLogin')
+const BookingsModal = require('../moduls/Users/BookingsModal')
 
 
 const {
@@ -78,6 +79,26 @@ const UserType = new GraphQLObjectType({
     })
 });
 
+const BookingsType = new GraphQLObjectType({
+    name: 'BookingsModal',
+    fields: () => ({
+        id: { type: GraphQLID },
+        UserName: { type: GraphQLString },
+        phone: { type: GraphQLString },
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+        //service data
+        ShopID: { type: GraphQLString },
+        title: { type: GraphQLString },
+        price: { type: GraphQLString },
+        Image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        tag: { type: GraphQLString },
+        offerDis: { type: GraphQLString },
+        offer: { type: GraphQLBoolean }
+    })
+});
+
 const RootQuery = new GraphQLObjectType({ //resolver
     name: "RootQueryType",
     fields: {
@@ -103,6 +124,12 @@ const RootQuery = new GraphQLObjectType({ //resolver
             type: new GraphQLList(UserType),
             resolve(perent, args) {
                 return USERS.find();
+            }
+        },
+        AllBookings: {
+            type: new GraphQLList(BookingsType),
+            resolve(perent, args) {
+                return BookingsModal.find();
             }
         },
         ServicesById: {
@@ -251,6 +278,42 @@ const MyMutations = new GraphQLObjectType({
                 return NewUsers.save(); //Creating New Client
             }
         },
+        // add Bookings
+        addBooking: {
+            type: BookingsType,
+            args: {
+                UserName: { type: GraphQLString },
+                phone: { type: GraphQLString },
+                email: { type: GraphQLString },
+                password: { type: GraphQLString },
+                //service data
+                ShopID: { type: GraphQLString },
+                title: { type: GraphQLString },
+                price: { type: GraphQLString },
+                Image: { type: GraphQLString },
+                description: { type: GraphQLString },
+                tag: { type: GraphQLString },
+                offerDis: { type: GraphQLString },
+                offer: { type: GraphQLBoolean }
+            },
+            resolve(parent, args) {
+                const NewBooking = new BookingsModal({
+                    UserName: args.UserName,
+                    phone: args.phone,
+                    email: args.email,
+                    password: args.password,
+                    ShopID: args.ShopID,
+                    title: args.title,
+                    Image: args.Image,
+                    description: args.description,
+                    tag: args.tag,
+                    price: args.price,
+                    offerDis: args.offerDis,
+                    offer: args.offer,
+                });
+                return NewBooking.save(); //Creating New 
+            }
+        },
         // Delete
         DeletService: {
             type: ServiceType,
@@ -279,6 +342,16 @@ const MyMutations = new GraphQLObjectType({
             },
             resolve(parent, args) {
                 return Rating.findByIdAndRemove(args.id);
+            }
+        },
+        //Dellete Booking
+        DeletBooking: {
+            type: BookingsType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                return BookingsModal.findByIdAndRemove(args.id);
             }
         },
 
