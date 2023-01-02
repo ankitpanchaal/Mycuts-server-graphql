@@ -12,6 +12,12 @@ const UserModal = new mongoose.Schema({
     },
     password: {
         type: String,
+    },
+    Image: {
+        type: String,
+    },
+    Location: {
+        type: String,
     }
 });
 

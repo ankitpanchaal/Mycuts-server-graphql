@@ -76,6 +76,8 @@ const UserType = new GraphQLObjectType({
         phone: { type: GraphQLString, },
         email: { type: GraphQLString, },
         password: { type: GraphQLString, },
+        Image: { type: GraphQLString, },
+        Location: { type: GraphQLString, },
     })
 });
 
@@ -267,13 +269,17 @@ const MyMutations = new GraphQLObjectType({
                 phone: { type: GraphQLString, },
                 email: { type: GraphQLString, },
                 password: { type: GraphQLString, },
+                Image: { type: GraphQLString, },
+                Location: { type: GraphQLString, },
             },
             resolve(parent, args) {
                 const NewUsers = new USERS({
                     UserName: args.UserName,
                     phone: args.phone,
                     email: args.email,
-                    password: args.password
+                    password: args.password,
+                    Image: args.Image,
+                    Location: args.Location
                 });
                 return NewUsers.save(); //Creating New Client
             }
